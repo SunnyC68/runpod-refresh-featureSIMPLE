@@ -1,0 +1,15 @@
+# Example files you don't need
+handlerCOMEXAMPLE.py
+FluxControlNetTileSamePOD.json
+
+# Git files
+.git
+.gitignore
+
+# Python cache
+__pycache__/
+*.pyc
+
+# IDE files
+.vscode/
+.DS_Store
