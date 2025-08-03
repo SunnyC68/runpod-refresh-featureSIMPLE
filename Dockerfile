@@ -11,8 +11,13 @@ COPY install_comfyui_3.12_2.7+12.8_.sh .
 # Run your script to set up ComfyUI. This happens only ONCE during build.
 RUN chmod +x ./install_comfyui_3.12_2.7+12.8_.sh && ./install_comfyui_3.12_2.7+12.8_.sh
 
+# Copy requirements and install handler dependencies
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
 # Now, copy your Python handler that will run on every API call
 COPY rp_handler.py .
 
 # This is the command that starts your serverless worker
-CMD python -u /workspace/rp_handler.py
+# The handler will automatically start ComfyUI and then initialize the RunPod worker
+CMD ["python", "-u", "/workspace/rp_handler.py"]

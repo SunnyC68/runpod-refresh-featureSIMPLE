@@ -5,23 +5,72 @@ import time
 import os
 import base64
 import random
+import logging
 
-COMFY_HOST = "127.0.0.1:8188"
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Configuration from environment variables
+COMFY_HOST = os.getenv("COMFY_HOST", "127.0.0.1:3001")  # Updated to match install script
+MAX_IMAGE_SIZE = int(os.getenv("MAX_IMAGE_SIZE_MB", "20")) * 1024 * 1024  # 20MB default
+COMFY_DIR = "/workspace/ComfyUI"
+
+def check_comfyui_health():
+    """Check if ComfyUI is running and accessible"""
+    try:
+        response = requests.get(f"http://{COMFY_HOST}/", timeout=5)
+        return response.status_code == 200
+    except requests.RequestException:
+        return False
+
+def wait_for_comfyui(timeout=60):
+    """Wait for ComfyUI to be ready"""
+    start_time = time.time()
+    while time.time() - start_time < timeout:
+        if check_comfyui_health():
+            logger.info("ComfyUI is ready")
+            return True
+        logger.info("Waiting for ComfyUI to start...")
+        time.sleep(2)
+    return False
 
 def handler(job):
-    job_input = job["input"]
+    try:
+        logger.info(f"Starting job processing: {job.get('id', 'unknown')}")
+        
+        # Check if ComfyUI is ready
+        if not check_comfyui_health():
+            logger.error("ComfyUI is not accessible")
+            if not wait_for_comfyui():
+                return {"error": "ComfyUI service is not available"}
+        
+        job_input = job["input"]
 
-    # --- 1. Get Your API Inputs ---
-    # We expect a 'prompt' and a base64 'image' from the API call
-    prompt_text = job_input.get("prompt")
-    image_base64 = job_input.get("image")
-    
-    # Validate required inputs
-    if not prompt_text:
-        return {"error": "Missing required 'prompt' parameter"}
-    
-    if not image_base64:
-        return {"error": "Missing required 'image' parameter"}
+        # --- 1. Get Your API Inputs ---
+        # We expect a 'prompt' and a base64 'image' from the API call
+        prompt_text = job_input.get("prompt")
+        image_base64 = job_input.get("image")
+        
+        # Validate required inputs
+        if not prompt_text or not isinstance(prompt_text, str):
+            return {"error": "Missing or invalid 'prompt' parameter - must be a non-empty string"}
+        
+        if not image_base64 or not isinstance(image_base64, str):
+            return {"error": "Missing or invalid 'image' parameter - must be a base64 encoded string"}
+            
+        # Validate prompt length
+        if len(prompt_text.strip()) == 0:
+            return {"error": "Prompt cannot be empty"}
+            
+        if len(prompt_text) > 2000:
+            return {"error": "Prompt too long (max 2000 characters)"}
+            
+        logger.info(f"Processing prompt: {prompt_text[:100]}...")
+        
+    except Exception as e:
+        logger.error(f"Error in input validation: {str(e)}")
+        return {"error": f"Input validation failed: {str(e)}"}
 
     # --- 2. Load Your Workflow ---
     # This is the static workflow from your file.
@@ -409,7 +458,7 @@ def handler(job):
 
     # --- 4. Handle the Uploaded Image ---
     # Decode the base64 image and save it to ComfyUI's input folder
-    if image_base64:
+    try:
         # Strip Data URI prefix if present (e.g., "data:image/png;base64,")
         if "," in image_base64:
             # Find the comma and take everything after it
@@ -418,55 +467,103 @@ def handler(job):
             # Assume it's already pure base64
             base64_data = image_base64
             
+        # Validate base64 format
         try:
-            image_data = base64.b64decode(base64_data)
-            with open("/workspace/ComfyUI/input/input.png", "wb") as f:
-                f.write(image_data)
+            image_data = base64.b64decode(base64_data, validate=True)
         except Exception as e:
-            return {"error": f"Failed to decode or save input image: {str(e)}"}
+            logger.error(f"Invalid base64 image data: {str(e)}")
+            return {"error": "Invalid base64 image data"}
+            
+        # Check image size (optional but recommended)
+        if len(image_data) > MAX_IMAGE_SIZE:
+            return {"error": f"Image too large (max {MAX_IMAGE_SIZE // (1024*1024)}MB)"}
+            
+        if len(image_data) < 100:  # Minimum reasonable image size
+            return {"error": "Image data too small - likely corrupted"}
+            
+        # Ensure input directory exists
+        input_dir = os.path.join(COMFY_DIR, "input")
+        os.makedirs(input_dir, exist_ok=True)
+        
+        input_path = os.path.join(input_dir, "input.png")
+        with open(input_path, "wb") as f:
+            f.write(image_data)
+            
+        logger.info(f"Successfully saved input image ({len(image_data)} bytes)")
+        
+    except Exception as e:
+        logger.error(f"Failed to process input image: {str(e)}")
+        return {"error": f"Failed to process input image: {str(e)}"}
 
     # --- 5. Queue the Prompt & Get the Output ---
     try:
+        logger.info("Queuing workflow to ComfyUI...")
         req = requests.post(f"http://{COMFY_HOST}/prompt", json={"prompt": workflow}, timeout=30)
         req.raise_for_status()
         response_data = req.json()
         prompt_id = response_data.get('prompt_id')
         if not prompt_id:
+            logger.error(f"No prompt_id in ComfyUI response: {response_data}")
             return {"error": f"No prompt_id in response: {response_data}"}
+        logger.info(f"Workflow queued successfully with prompt_id: {prompt_id}")
     except requests.RequestException as e:
+        logger.error(f"Failed to queue workflow: {str(e)}")
         return {"error": f"Failed to queue workflow: {str(e)}"}
 
     output_image = None
-    max_wait_time = 300  # Maximum wait time in seconds (5 minutes)
-    start_time = time.time()
+    # Just keep checking until RunPod kills us or we get results
+    # Keep these variables for progress tracking (not timeout!)
+check_count = 0
+start_time = time.time()  # Just for progress logging, not timeout
+
+while output_image is None:
+    check_count += 1
     
-    while output_image is None:
-        if time.time() - start_time > max_wait_time:
-            return {"error": "Timeout waiting for workflow completion"}
+    # Log progress every 10 seconds (but don't timeout!)
+    if check_count % 10 == 0:
+        elapsed_time = time.time() - start_time  # Calculate how long we've been waiting
+        logger.info(f"Still waiting for completion... ({elapsed_time:.1f}s elapsed)")
             
         try:
             history_req = requests.get(f"http://{COMFY_HOST}/history/{prompt_id}", timeout=10)
             history_req.raise_for_status()
             history = history_req.json().get(prompt_id, {})
         except requests.RequestException as e:
+            logger.error(f"Failed to check workflow status: {str(e)}")
             return {"error": f"Failed to check workflow status: {str(e)}"}
+        
+        # Check for errors in the workflow execution
+        if 'status' in history and history['status'].get('status_str') == 'error':
+            error_details = history['status'].get('messages', [])
+            logger.error(f"Workflow execution failed: {error_details}")
+            return {"error": f"Workflow execution failed: {error_details}"}
         
         # Check if the job is done and has outputs
         if history.get('outputs'):
             outputs = history['outputs']
+            logger.info("Workflow completed, processing outputs...")
             # Find your "SaveImagePlus" node's output (node "95")
             save_image_node_id = "95" 
             if save_image_node_id in outputs:
                 node_output = outputs[save_image_node_id]
-                if 'images' in node_output:
+                if 'images' in node_output and len(node_output['images']) > 0:
                     image_data = node_output['images'][0]
                     image_url = f"http://{COMFY_HOST}/view?filename={image_data['filename']}&subfolder={image_data.get('subfolder', '')}&type={image_data.get('type', 'output')}"
                     try:
+                        logger.info(f"Downloading output image: {image_data['filename']}")
                         response = requests.get(image_url, timeout=30)
                         response.raise_for_status()
                         output_image = response.content
+                        logger.info(f"Successfully downloaded output image ({len(output_image)} bytes)")
                     except requests.RequestException as e:
+                        logger.error(f"Failed to download output image: {str(e)}")
                         return {"error": f"Failed to download output image: {str(e)}"}
+                else:
+                    logger.error("No images found in SaveImagePlus node output")
+                    return {"error": "No images generated by the workflow"}
+            else:
+                logger.error(f"SaveImagePlus node (ID: {save_image_node_id}) not found in outputs")
+                return {"error": "Expected output node not found"}
             # If we have outputs but not the one we want, something is wrong, stop waiting.
             break 
             
@@ -475,10 +572,75 @@ def handler(job):
     # --- 6. Return the Final Image ---
     if output_image:
         image_base64_out = base64.b64encode(output_image).decode('utf-8')
-        return {"image_base64": image_base64_out}
+        return {
+            "images": [
+                {
+                    "filename": f"FormDez_{prompt_id}.webp",
+                    "type": "base64",
+                    "data": image_base64_out
+                }
+            ]
+        }
     else:
         return {"error": "Failed to generate image."}
 
 
+def health_check():
+    """Health check endpoint for RunPod"""
+    try:
+        comfy_healthy = check_comfyui_health()
+        return {
+            "status": "healthy" if comfy_healthy else "unhealthy",
+            "comfyui": "running" if comfy_healthy else "not_running",
+            "timestamp": time.time()
+        }
+    except Exception as e:
+        return {
+            "status": "unhealthy",
+            "error": str(e),
+            "timestamp": time.time()
+        }
+
+
+def initialize_comfyui():
+    """Initialize ComfyUI server on startup"""
+    import subprocess
+    import threading
+    
+    def start_comfyui():
+        """Start ComfyUI server in background"""
+        try:
+            # Start ComfyUI server using the virtual environment
+            # This matches your install script setup
+            command = [
+                "/bin/bash", "-c",
+                f"cd {COMFY_DIR} && source venv/bin/activate && python main.py --listen --port 3001"
+            ]
+            subprocess.run(command, check=False)
+        except Exception as e:
+            logger.error(f"Failed to start ComfyUI: {str(e)}")
+    
+    logger.info("Starting ComfyUI server...")
+    # Start ComfyUI in a separate thread
+    comfyui_thread = threading.Thread(target=start_comfyui, daemon=True)
+    comfyui_thread.start()
+    
+    # Wait for ComfyUI to be ready
+    if wait_for_comfyui(timeout=120):  # Wait up to 2 minutes for startup
+        logger.info("ComfyUI initialization complete")
+        return True
+    else:
+        logger.error("ComfyUI failed to start within timeout period")
+        return False
+
 if __name__ == "__main__":
-    runpod.serverless.start({"handler": handler})
+    # Initialize ComfyUI on startup
+    if not initialize_comfyui():
+        logger.error("Failed to initialize ComfyUI - exiting")
+        exit(1)
+    
+    logger.info("Starting RunPod serverless handler...")
+    runpod.serverless.start({
+        "handler": handler,
+        "rp_healthcheck": health_check
+    })
