@@ -30,6 +30,15 @@ RUN . /workspace/ComfyUI/venv/bin/activate && \
     pip install -r /workspace/ComfyUI/custom_nodes/nunchaku_nodes/requirements.txt && \
     pip install https://huggingface.co/mit-han-lab/nunchaku/resolve/main/nunchaku-0.3.1%2Btorch2.7-cp312-cp312-linux_x86_64.whl
 
+# Create symlinks from the default ComfyUI model directories to the /runpod-volume
+RUN cd /workspace/ComfyUI/models && \
+    for dir in checkpoints configs vae loras upscale_models embeddings hypernetworks controlnet clip clip_vision style_models unet text_encoders photomaker diffusion_models gligen; do \
+        mkdir -p /runpod-volume/ComfyUI/models/$dir; \
+        rm -rf $dir; \
+        ln -s /runpod-volume/ComfyUI/models/$dir $dir; \
+    done
+
+
 # Copy the extra model paths configuration to tell ComfyUI where to find the models
 COPY extra_model_paths.yaml /workspace/ComfyUI/extra_model_paths.yaml
 
