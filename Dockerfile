@@ -28,7 +28,8 @@ RUN cd /workspace/ComfyUI && source venv/bin/activate && \
     (cd custom_nodes/comfyui_controlnet_aux && [ -f requirements.txt ] && pip install -r requirements.txt || echo "No requirements.txt for controlnet_aux") && \
     (cd custom_nodes/ComfyUI_essentials && [ -f requirements.txt ] && pip install -r requirements.txt || echo "No requirements.txt for essentials") && \
     (cd custom_nodes/ComfyUI-KJNodes && [ -f requirements.txt ] && pip install -r requirements.txt || echo "No requirements.txt for KJNodes") && \
-    (cd custom_nodes/nunchaku_nodes && [ -f requirements.txt ] && pip install -r requirements.txt || echo "No requirements.txt for nunchaku")
+    (cd custom_nodes/nunchaku_nodes && [ -f requirements.txt ] && pip install -r requirements.txt || echo "No requirements.txt for nunchaku") && \
+    pip install https://huggingface.co/mit-han-lab/nunchaku/resolve/main/nunchaku-0.3.1%2Btorch2.7-cp312-cp312-linux_x86_64.whl
 
 # Copy requirements and install handler dependencies
 COPY requirements.txt .
