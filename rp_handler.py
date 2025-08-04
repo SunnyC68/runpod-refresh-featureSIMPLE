@@ -495,6 +495,38 @@ def handler(job):
         logger.error(f"Failed to process input image: {str(e)}")
         return {"error": f"Failed to process input image: {str(e)}"}
 
+    # --- Debug: Check filesystem and volume mounting ---
+    logger.info("=== FILESYSTEM DEBUG ===")
+    custom_nodes_path = "/workspace/ComfyUI/custom_nodes"
+    
+    # Check if directories exist
+    logger.info(f"Checking if {custom_nodes_path} exists: {os.path.exists(custom_nodes_path)}")
+    if os.path.exists(custom_nodes_path):
+        try:
+            contents = os.listdir(custom_nodes_path)
+            logger.info(f"Custom nodes directory contents ({len(contents)} items): {contents[:10]}")  # Show first 10
+            
+            # Check for specific expected custom node folders
+            expected_folders = ["comfyui_controlnet_aux", "ComfyUI-Custom-Scripts", "was-node-suite-comfyui"]
+            for folder in expected_folders:
+                folder_path = os.path.join(custom_nodes_path, folder)
+                exists = os.path.exists(folder_path)
+                logger.info(f"  {folder}: {'EXISTS' if exists else 'MISSING'}")
+        except Exception as e:
+            logger.error(f"Error listing custom_nodes directory: {str(e)}")
+    
+    # Check ComfyUI directory structure
+    comfy_path = "/workspace/ComfyUI"
+    logger.info(f"ComfyUI directory exists: {os.path.exists(comfy_path)}")
+    if os.path.exists(comfy_path):
+        try:
+            contents = os.listdir(comfy_path)
+            logger.info(f"ComfyUI directory contents: {contents}")
+        except Exception as e:
+            logger.error(f"Error listing ComfyUI directory: {str(e)}")
+    
+    logger.info("=== END FILESYSTEM DEBUG ===")
+
     # --- Debug: Check available nodes ---
     try:
         logger.info("Checking available ComfyUI nodes...")
