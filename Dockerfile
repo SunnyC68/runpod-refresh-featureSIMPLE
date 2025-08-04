@@ -13,7 +13,7 @@ RUN chmod +x ./install_comfyui_3.12_2.7+12.8_.sh && ./install_comfyui_3.12_2.7+1
 
 # Install required custom nodes
 RUN cd /workspace/ComfyUI && \
-    git clone --depth 1 https://github.com/Fannovel16/comfyui_controlnet_aux.git ./custom_nodes/comfyui_controlnet_aux && \
+    git clone --recursive --depth 1 https://github.com/Fannovel16/comfyui_controlnet_aux.git ./custom_nodes/comfyui_controlnet_aux && \
     git clone --depth 1 https://github.com/asagi4/comfyui-adaptive-guidance.git ./custom_nodes/comfyui-adaptive-guidance && \
     git clone --depth 1 https://github.com/cubiq/ComfyUI_essentials.git ./custom_nodes/ComfyUI_essentials && \
     git clone --depth 1 https://github.com/kijai/ComfyUI-KJNodes.git ./custom_nodes/ComfyUI-KJNodes && \
@@ -23,13 +23,16 @@ RUN cd /workspace/ComfyUI && \
     git clone --depth 1 https://github.com/Ltamann/ComfyUI-TBG-ETUR.git ./custom_nodes/ComfyUI-TBG-ETUR && \
     git clone --depth 1 https://github.com/mit-han-lab/ComfyUI-nunchaku.git ./custom_nodes/nunchaku_nodes
 
-# Install custom node dependencies in a controlled way
+# Install custom node dependencies
 RUN . /workspace/ComfyUI/venv/bin/activate && \
-    pip install --no-cache-dir onnxruntime-gpu==1.18.0 && \
-    pip install --no-cache-dir -r /workspace/ComfyUI/custom_nodes/comfyui_controlnet_aux/requirements.txt && \
-    pip install --no-cache-dir -r /workspace/ComfyUI/custom_nodes/ComfyUI_essentials/requirements.txt && \
-    pip install --no-cache-dir -r /workspace/ComfyUI/custom_nodes/nunchaku_nodes/requirements.txt && \
+    pip install -r /workspace/ComfyUI/custom_nodes/comfyui_controlnet_aux/requirements.txt && \
+    pip install -r /workspace/ComfyUI/custom_nodes/ComfyUI_essentials/requirements.txt && \
+    pip install -r /workspace/ComfyUI/custom_nodes/nunchaku_nodes/requirements.txt && \
     pip install https://huggingface.co/mit-han-lab/nunchaku/resolve/main/nunchaku-0.3.1%2Btorch2.7-cp312-cp312-linux_x86_64.whl
+
+# Copy the extra model paths configuration to tell ComfyUI where to find the models
+COPY extra_model_paths.yaml /workspace/ComfyUI/extra_model_paths.yaml
+
 
 # Copy requirements and install handler dependencies
 COPY requirements.txt .

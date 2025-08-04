@@ -40,20 +40,20 @@ def handler(job):
         logger.info(f"Starting job processing: {job.get('id', 'unknown')}")
         
         # === FILESYSTEM DEBUG START ===
-        logger.info(f"Contents of /workspace: {os.listdir('/workspace') if os.path.exists('/workspace') else 'Directory not found'}")
-        if os.path.exists('/workspace/ComfyUI/models'):
-            logger.info(f"Contents of /workspace/ComfyUI/models: {os.listdir('/workspace/ComfyUI/models')}")
+        logger.info(f"Contents of /runpod-volume: {os.listdir('/runpod-volume') if os.path.exists('/runpod-volume') else 'Directory not found'}")
+        if os.path.exists('/runpod-volume/ComfyUI/models'):
+            logger.info(f"Contents of /runpod-volume/ComfyUI/models: {os.listdir('/runpod-volume/ComfyUI/models')}")
             # Check each model subdirectory
             model_subdirs = ['checkpoints', 'vae', 'controlnet', 'clip', 'upscale_models', 'text_encoders']
             for subdir in model_subdirs:
-                subdir_path = f'/workspace/ComfyUI/models/{subdir}'
+                subdir_path = f'/runpod-volume/ComfyUI/models/{subdir}'
                 if os.path.exists(subdir_path):
                     files = os.listdir(subdir_path)
                     logger.info(f"Contents of {subdir_path}: {files}")
                 else:
                     logger.info(f"{subdir_path}: Directory not found")
         else:
-            logger.info("/workspace/ComfyUI/models: Directory not found")
+            logger.info("/runpod-volume/ComfyUI/models: Directory not found")
         logger.info("=== FILESYSTEM DEBUG END ===")
         # Check if ComfyUI is ready
         if not check_comfyui_health():
@@ -510,38 +510,6 @@ def handler(job):
     except Exception as e:
         logger.error(f"Failed to process input image: {str(e)}")
         return {"error": f"Failed to process input image: {str(e)}"}
-
-    # --- Debug: Check filesystem and volume mounting ---
-    logger.info("=== FILESYSTEM DEBUG ===")
-    custom_nodes_path = "/workspace/ComfyUI/custom_nodes"
-    
-    # Check if directories exist
-    logger.info(f"Checking if {custom_nodes_path} exists: {os.path.exists(custom_nodes_path)}")
-    if os.path.exists(custom_nodes_path):
-        try:
-            contents = os.listdir(custom_nodes_path)
-            logger.info(f"Custom nodes directory contents ({len(contents)} items): {contents[:10]}")  # Show first 10
-            
-            # Check for specific expected custom node folders
-            expected_folders = ["comfyui_controlnet_aux", "ComfyUI-Custom-Scripts", "was-node-suite-comfyui"]
-            for folder in expected_folders:
-                folder_path = os.path.join(custom_nodes_path, folder)
-                exists = os.path.exists(folder_path)
-                logger.info(f"  {folder}: {'EXISTS' if exists else 'MISSING'}")
-        except Exception as e:
-            logger.error(f"Error listing custom_nodes directory: {str(e)}")
-    
-    # Check ComfyUI directory structure
-    comfy_path = "/workspace/ComfyUI"
-    logger.info(f"ComfyUI directory exists: {os.path.exists(comfy_path)}")
-    if os.path.exists(comfy_path):
-        try:
-            contents = os.listdir(comfy_path)
-            logger.info(f"ComfyUI directory contents: {contents}")
-        except Exception as e:
-            logger.error(f"Error listing ComfyUI directory: {str(e)}")
-    
-    logger.info("=== END FILESYSTEM DEBUG ===")
 
     # --- Debug: Check available nodes ---
     try:
