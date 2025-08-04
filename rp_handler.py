@@ -513,17 +513,17 @@ def handler(job):
     output_image = None
     # Just keep checking until RunPod kills us or we get results
     # Keep these variables for progress tracking (not timeout!)
-check_count = 0
-start_time = time.time()  # Just for progress logging, not timeout
+    check_count = 0
+    start_time = time.time()  # Just for progress logging, not timeout
 
-while output_image is None:
-    check_count += 1
-    
-    # Log progress every 10 seconds (but don't timeout!)
-    if check_count % 10 == 0:
-        elapsed_time = time.time() - start_time  # Calculate how long we've been waiting
-        logger.info(f"Still waiting for completion... ({elapsed_time:.1f}s elapsed)")
-            
+    while output_image is None:
+        check_count += 1
+        
+        # Log progress every 10 seconds (but don't timeout!)
+        if check_count % 10 == 0:
+            elapsed_time = time.time() - start_time  # Calculate how long we've been waiting
+            logger.info(f"Still waiting for completion... ({elapsed_time:.1f}s elapsed)")
+                
         try:
             history_req = requests.get(f"http://{COMFY_HOST}/history/{prompt_id}", timeout=10)
             history_req.raise_for_status()
@@ -531,13 +531,13 @@ while output_image is None:
         except requests.RequestException as e:
             logger.error(f"Failed to check workflow status: {str(e)}")
             return {"error": f"Failed to check workflow status: {str(e)}"}
-        
+            
         # Check for errors in the workflow execution
         if 'status' in history and history['status'].get('status_str') == 'error':
             error_details = history['status'].get('messages', [])
             logger.error(f"Workflow execution failed: {error_details}")
             return {"error": f"Workflow execution failed: {error_details}"}
-        
+            
         # Check if the job is done and has outputs
         if history.get('outputs'):
             outputs = history['outputs']
@@ -566,7 +566,7 @@ while output_image is None:
                 return {"error": "Expected output node not found"}
             # If we have outputs but not the one we want, something is wrong, stop waiting.
             break 
-            
+                
         time.sleep(1.0)  # Wait 1 second between checks
 
     # --- 6. Return the Final Image ---
