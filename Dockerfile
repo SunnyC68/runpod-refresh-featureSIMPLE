@@ -11,6 +11,25 @@ COPY install_comfyui_3.12_2.7+12.8_.sh .
 # Run your script to set up ComfyUI. This happens only ONCE during build.
 RUN chmod +x ./install_comfyui_3.12_2.7+12.8_.sh && ./install_comfyui_3.12_2.7+12.8_.sh
 
+# Install required custom nodes
+RUN cd /workspace/ComfyUI && \
+    git clone --depth 1 https://github.com/Fannovel16/comfyui_controlnet_aux.git ./custom_nodes/comfyui_controlnet_aux && \
+    git clone --depth 1 https://github.com/asagi4/comfyui-adaptive-guidance.git ./custom_nodes/comfyui-adaptive-guidance && \
+    git clone --depth 1 https://github.com/cubiq/ComfyUI_essentials.git ./custom_nodes/ComfyUI_essentials && \
+    git clone --depth 1 https://github.com/kijai/ComfyUI-KJNodes.git ./custom_nodes/ComfyUI-KJNodes && \
+    git clone --depth 1 https://github.com/chibiace/ComfyUI-Chibi-Nodes.git ./custom_nodes/ComfyUI-Chibi-Nodes && \
+    git clone --depth 1 https://github.com/TheBill2001/comfyui-upscale-by-model.git ./custom_nodes/comfyui-upscale-by-model && \
+    git clone --depth 1 https://github.com/Goktug/comfyui-saveimage-plus.git ./custom_nodes/Save-Image-Plus && \
+    git clone --depth 1 https://github.com/Ltamann/ComfyUI-TBG-ETUR.git ./custom_nodes/ComfyUI-TBG-ETUR && \
+    git clone --depth 1 https://github.com/mit-han-lab/ComfyUI-nunchaku.git ./custom_nodes/nunchaku_nodes
+
+# Install custom node dependencies (only for nodes that actually need them)
+RUN cd /workspace/ComfyUI && source venv/bin/activate && \
+    (cd custom_nodes/comfyui_controlnet_aux && [ -f requirements.txt ] && pip install -r requirements.txt || echo "No requirements.txt for controlnet_aux") && \
+    (cd custom_nodes/ComfyUI_essentials && [ -f requirements.txt ] && pip install -r requirements.txt || echo "No requirements.txt for essentials") && \
+    (cd custom_nodes/ComfyUI-KJNodes && [ -f requirements.txt ] && pip install -r requirements.txt || echo "No requirements.txt for KJNodes") && \
+    (cd custom_nodes/nunchaku_nodes && [ -f requirements.txt ] && pip install -r requirements.txt || echo "No requirements.txt for nunchaku")
+
 # Copy requirements and install handler dependencies
 COPY requirements.txt .
 RUN pip install -r requirements.txt
