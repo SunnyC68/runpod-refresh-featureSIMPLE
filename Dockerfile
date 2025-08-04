@@ -25,6 +25,7 @@ RUN cd /workspace/ComfyUI && \
 
 # Install custom node dependencies (only for nodes that actually need them)
 RUN cd /workspace/ComfyUI && source venv/bin/activate && \
+    pip install easy-dwpose && \
     (cd custom_nodes/comfyui_controlnet_aux && [ -f requirements.txt ] && pip install -r requirements.txt || echo "No requirements.txt for controlnet_aux") && \
     (cd custom_nodes/ComfyUI_essentials && [ -f requirements.txt ] && pip install -r requirements.txt || echo "No requirements.txt for essentials") && \
     (cd custom_nodes/ComfyUI-KJNodes && [ -f requirements.txt ] && pip install -r requirements.txt || echo "No requirements.txt for KJNodes") && \
