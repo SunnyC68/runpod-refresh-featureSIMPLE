@@ -23,13 +23,13 @@ RUN cd /workspace/ComfyUI && \
     git clone --depth 1 https://github.com/Ltamann/ComfyUI-TBG-ETUR.git ./custom_nodes/ComfyUI-TBG-ETUR && \
     git clone --depth 1 https://github.com/mit-han-lab/ComfyUI-nunchaku.git ./custom_nodes/nunchaku_nodes
 
-# Install custom node dependencies (only for nodes that actually need them)
-RUN cd /workspace/ComfyUI && source venv/bin/activate && \
-    pip install easy-dwpose && \
-    (cd custom_nodes/comfyui_controlnet_aux && [ -f requirements.txt ] && pip install -r requirements.txt || echo "No requirements.txt for controlnet_aux") && \
-    (cd custom_nodes/ComfyUI_essentials && [ -f requirements.txt ] && pip install -r requirements.txt || echo "No requirements.txt for essentials") && \
-    (cd custom_nodes/ComfyUI-KJNodes && [ -f requirements.txt ] && pip install -r requirements.txt || echo "No requirements.txt for KJNodes") && \
-    (cd custom_nodes/nunchaku_nodes && [ -f requirements.txt ] && pip install -r requirements.txt || echo "No requirements.txt for nunchaku") && \
+# Install custom node dependencies
+RUN . /workspace/ComfyUI/venv/bin/activate && \
+    pip install --no-cache-dir --upgrade \
+    onnxruntime-gpu==1.16.2 \
+    -r /workspace/ComfyUI/custom_nodes/comfyui_controlnet_aux/requirements.txt \
+    -r /workspace/ComfyUI/custom_nodes/ComfyUI_essentials/requirements.txt \
+    -r /workspace/ComfyUI/custom_nodes/nunchaku_nodes/requirements.txt && \
     pip install https://huggingface.co/mit-han-lab/nunchaku/resolve/main/nunchaku-0.3.1%2Btorch2.7-cp312-cp312-linux_x86_64.whl
 
 # Copy requirements and install handler dependencies
