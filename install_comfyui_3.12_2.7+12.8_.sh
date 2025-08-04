@@ -65,7 +65,7 @@ chmod +x /workspace/ComfyUI/main.py
 # Kill any process using port 3001
 fuser -k 3001/tcp || true
 
-# Run ComfyUI on port 3001
-cd /workspace/ComfyUI
-source venv/bin/activate
-python main.py --listen --port 3001
+# Installation complete - ComfyUI will be started by the handler at runtime
+echo "ComfyUI installation completed successfully"
+echo "Installation path: /workspace/ComfyUI"
+echo "Virtual environment: /workspace/ComfyUI/venv"
