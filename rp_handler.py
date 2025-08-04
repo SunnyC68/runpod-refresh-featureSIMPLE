@@ -39,6 +39,22 @@ def handler(job):
     try:
         logger.info(f"Starting job processing: {job.get('id', 'unknown')}")
         
+        # === FILESYSTEM DEBUG START ===
+        logger.info(f"Contents of /workspace: {os.listdir('/workspace') if os.path.exists('/workspace') else 'Directory not found'}")
+        if os.path.exists('/workspace/models'):
+            logger.info(f"Contents of /workspace/models: {os.listdir('/workspace/models')}")
+            # Check each model subdirectory
+            model_subdirs = ['checkpoints', 'vae', 'controlnet', 'clip', 'upscale_models', 'text_encoders']
+            for subdir in model_subdirs:
+                subdir_path = f'/workspace/models/{subdir}'
+                if os.path.exists(subdir_path):
+                    files = os.listdir(subdir_path)
+                    logger.info(f"Contents of {subdir_path}: {files}")
+                else:
+                    logger.info(f"{subdir_path}: Directory not found")
+        else:
+            logger.info("/workspace/models: Directory not found")
+        logger.info("=== FILESYSTEM DEBUG END ===")
         # Check if ComfyUI is ready
         if not check_comfyui_health():
             logger.error("ComfyUI is not accessible")
