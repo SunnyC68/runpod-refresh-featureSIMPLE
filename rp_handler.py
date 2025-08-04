@@ -564,7 +564,7 @@ def handler(job):
             logger.info(f"Still waiting for completion... ({elapsed_time:.1f}s elapsed)")
                 
         try:
-            history_req = requests.get(f"http://{COMFY_HOST}/history/{prompt_id}", timeout=10)
+            history_req = requests.get(f"http://{COMFY_HOST}/history/{prompt_id}", timeout=60)
             history_req.raise_for_status()
             history = history_req.json().get(prompt_id, {})
         except requests.RequestException as e:

@@ -25,9 +25,11 @@ RUN cd /workspace/ComfyUI && \
 
 # Install custom node dependencies
 RUN . /workspace/ComfyUI/venv/bin/activate && \
-    pip install -r /workspace/ComfyUI/custom_nodes/comfyui_controlnet_aux/requirements.txt && \
-    pip install -r /workspace/ComfyUI/custom_nodes/ComfyUI_essentials/requirements.txt && \
-    pip install -r /workspace/ComfyUI/custom_nodes/nunchaku_nodes/requirements.txt && \
+    pip install \
+        easy-dwpose \
+        -r /workspace/ComfyUI/custom_nodes/comfyui_controlnet_aux/requirements.txt \
+        -r /workspace/ComfyUI/custom_nodes/ComfyUI_essentials/requirements.txt \
+        -r /workspace/ComfyUI/custom_nodes/nunchaku_nodes/requirements.txt && \
     pip install https://huggingface.co/mit-han-lab/nunchaku/resolve/main/nunchaku-0.3.1%2Btorch2.7-cp312-cp312-linux_x86_64.whl
 
 # Create symlinks from the default ComfyUI model directories to the /runpod-volume

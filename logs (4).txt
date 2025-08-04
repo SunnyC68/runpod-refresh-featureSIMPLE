@@ -1,0 +1,173 @@
+2025-08-04T22:22:40.964762714Z ==========
+2025-08-04T22:22:40.964800915Z == CUDA ==
+2025-08-04T22:22:40.964876387Z ==========
+2025-08-04T22:22:40.970316699Z CUDA Version 12.4.1
+2025-08-04T22:22:40.972836603Z Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+2025-08-04T22:22:40.974381449Z This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+2025-08-04T22:22:40.974387510Z By pulling and using the container, you accept the terms and conditions of this license:
+2025-08-04T22:22:40.974392770Z https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+2025-08-04T22:22:40.974402430Z A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+2025-08-04T22:22:43.325878715Z rp_handler.py       :662  2025-08-04 22:22:43,325 Starting ComfyUI server...
+2025-08-04T22:22:43.327820613Z rp_handler.py       :34   2025-08-04 22:22:43,327 Waiting for ComfyUI to start...
+2025-08-04T22:22:44.306310463Z [START] Security scan
+2025-08-04T22:22:44.306328054Z [DONE] Security scan
+2025-08-04T22:22:44.306333374Z ## ComfyUI-Manager: installing dependencies done.
+2025-08-04T22:22:44.306362245Z ** ComfyUI startup time: 2025-08-04 22:22:44.306
+2025-08-04T22:22:44.306444897Z ** Platform: Linux
+2025-08-04T22:22:44.306533850Z ** Python version: 3.12.11 (main, Jun  4 2025, 08:56:18) [GCC 11.4.0]
+2025-08-04T22:22:44.306641143Z ** Python executable: /workspace/ComfyUI/venv/bin/python
+2025-08-04T22:22:44.306702145Z ** ComfyUI Path: /workspace/ComfyUI
+2025-08-04T22:22:44.306815008Z ** ComfyUI Base Folder Path: /workspace/ComfyUI
+2025-08-04T22:22:44.306914391Z ** User directory: /workspace/ComfyUI/user
+2025-08-04T22:22:44.306997904Z ** ComfyUI-Manager config path: /workspace/ComfyUI/user/default/ComfyUI-Manager/config.ini
+2025-08-04T22:22:44.307064316Z ** Log path: /workspace/ComfyUI/user/comfyui.log
+2025-08-04T22:22:45.124620562Z [34m[TBG_____Upscaler and Refiner] [92mInitialization[0m
+2025-08-04T22:22:45.125123287Z Prestartup times for custom nodes:
+2025-08-04T22:22:45.125267471Z    0.0 seconds: /workspace/ComfyUI/custom_nodes/ComfyUI-TBG-ETUR
+2025-08-04T22:22:45.125339393Z    1.7 seconds: /workspace/ComfyUI/custom_nodes/ComfyUI-Manager
+2025-08-04T22:22:45.329701716Z rp_handler.py       :34   2025-08-04 22:22:45,329 Waiting for ComfyUI to start...
+2025-08-04T22:22:46.651149902Z Checkpoint files will always be loaded safely.
+2025-08-04T22:22:46.831091250Z Total VRAM 24210 MB, total RAM 257588 MB
+2025-08-04T22:22:46.831118701Z pytorch version: 2.7.0+cu128
+2025-08-04T22:22:46.831508593Z Set vram state to: NORMAL_VRAM
+2025-08-04T22:22:46.831789421Z Device: cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync
+2025-08-04T22:22:47.331211548Z rp_handler.py       :34   2025-08-04 22:22:47,330 Waiting for ComfyUI to start...
+2025-08-04T22:22:48.175498607Z Using pytorch attention
+2025-08-04T22:22:49.333413301Z rp_handler.py       :34   2025-08-04 22:22:49,333 Waiting for ComfyUI to start...
+2025-08-04T22:22:50.057524384Z Python version: 3.12.11 (main, Jun  4 2025, 08:56:18) [GCC 11.4.0]
+2025-08-04T22:22:50.057555765Z ComfyUI version: 0.3.48
+2025-08-04T22:22:50.189346335Z ComfyUI frontend version: 1.23.4
+2025-08-04T22:22:50.190009305Z [Prompt Server] web root: /workspace/ComfyUI/venv/lib/python3.12/site-packages/comfyui_frontend_package/static
+2025-08-04T22:22:51.040930081Z ### Loading: ComfyUI-Manager (V3.35)
+2025-08-04T22:22:51.041205789Z [ComfyUI-Manager] network_mode: public
+2025-08-04T22:22:51.105722713Z ### ComfyUI Version: v0.3.48-5-gaebac221 | Released on '2025-08-03'
+2025-08-04T22:22:51.335510311Z rp_handler.py       :34   2025-08-04 22:22:51,335 Waiting for ComfyUI to start...
+2025-08-04T22:22:51.542223373Z [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/model-list.json
+2025-08-04T22:22:51.547029546Z [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/alter-list.json
+2025-08-04T22:22:51.610288523Z [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/github-stats.json
+2025-08-04T22:22:51.670282273Z [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/custom-node-list.json
+2025-08-04T22:22:51.706955581Z [ComfyUI-Manager] default cache updated: https://raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/main/extension-node-map.json
+2025-08-04T22:22:51.731249442Z generated new fontManager
+2025-08-04T22:22:51.937037167Z [36;20m[/workspace/ComfyUI/custom_nodes/ComfyUI-TBG-ETUR.py.vendor.comfyui_controlnet_aux] | INFO -> Using ckpts path: /workspace/ComfyUI/custom_nodes/ComfyUI-TBG-ETUR/py/vendor/comfyui_controlnet_aux/ckpts[0m
+2025-08-04T22:22:51.937068268Z [36;20m[/workspace/ComfyUI/custom_nodes/ComfyUI-TBG-ETUR.py.vendor.comfyui_controlnet_aux] | INFO -> Using symlinks: False[0m
+2025-08-04T22:22:51.937245383Z [36;20m[/workspace/ComfyUI/custom_nodes/ComfyUI-TBG-ETUR.py.vendor.comfyui_controlnet_aux] | INFO -> Using ort providers: ['CUDAExecutionProvider', 'DirectMLExecutionProvider', 'OpenVINOExecutionProvider', 'ROCMExecutionProvider', 'CPUExecutionProvider', 'CoreMLExecutionProvider'][0m
+2025-08-04T22:22:51.974583891Z xFormers not available
+2025-08-04T22:22:51.979094775Z xFormers not available
+2025-08-04T22:22:52.028115159Z [34m[TBG_Enhanced Tiled Upscaler and Refiner FLUX PRO] [92mLoaded[0m
+2025-08-04T22:22:52.181682625Z /workspace/ComfyUI/custom_nodes/ComfyUI_essentials/conditioning.py:234: SyntaxWarning: invalid escape sequence '\.'
+2025-08-04T22:22:52.181711436Z   double_blocks\.0\.(img|txt)_(mod|attn|mlp)\.(lin|qkv|proj|0|2)\.(weight|bias)=1.1
+2025-08-04T22:22:52.198541956Z [36;20m[/workspace/ComfyUI/custom_nodes/comfyui_controlnet_aux] | INFO -> Using ckpts path: /workspace/ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts[0m
+2025-08-04T22:22:52.198717101Z [36;20m[/workspace/ComfyUI/custom_nodes/comfyui_controlnet_aux] | INFO -> Using symlinks: False[0m
+2025-08-04T22:22:52.198910797Z [36;20m[/workspace/ComfyUI/custom_nodes/comfyui_controlnet_aux] | INFO -> Using ort providers: ['CUDAExecutionProvider', 'DirectMLExecutionProvider', 'OpenVINOExecutionProvider', 'ROCMExecutionProvider', 'CPUExecutionProvider', 'CoreMLExecutionProvider'][0m
+2025-08-04T22:22:52.259343599Z Full error log from comfyui_controlnet_aux:
+2025-08-04T22:22:52.259349880Z Traceback (most recent call last):
+2025-08-04T22:22:52.259355280Z   File "/workspace/ComfyUI/custom_nodes/comfyui_controlnet_aux/__init__.py", line 35, in load_nodes
+2025-08-04T22:22:52.259361280Z     module = importlib.import_module(
+2025-08-04T22:22:52.259366350Z              ^^^^^^^^^^^^^^^^^^^^^^^^
+2025-08-04T22:22:52.259371510Z   File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+2025-08-04T22:22:52.259377020Z     return _bootstrap._gcd_import(name[level:], package, level)
+2025-08-04T22:22:52.259382661Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-08-04T22:22:52.259388081Z   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+2025-08-04T22:22:52.259393591Z   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2025-08-04T22:22:52.259398611Z   File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2025-08-04T22:22:52.259403631Z   File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2025-08-04T22:22:52.259408691Z   File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+2025-08-04T22:22:52.259413772Z   File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+2025-08-04T22:22:52.259418862Z   File "/workspace/ComfyUI/custom_nodes/comfyui_controlnet_aux/node_wrappers/dwpose.py", line 5, in <module>
+2025-08-04T22:22:52.259423892Z     from custom_controlnet_aux.dwpose import DwposeDetector, AnimalposeDetector
+2025-08-04T22:22:52.259428932Z ModuleNotFoundError: No module named 'custom_controlnet_aux.dwpose'
+2025-08-04T22:22:52.259443992Z Traceback (most recent call last):
+2025-08-04T22:22:52.259449343Z   File "/workspace/ComfyUI/custom_nodes/comfyui_controlnet_aux/__init__.py", line 35, in load_nodes
+2025-08-04T22:22:52.259469973Z     module = importlib.import_module(
+2025-08-04T22:22:52.259475333Z              ^^^^^^^^^^^^^^^^^^^^^^^^
+2025-08-04T22:22:52.259480804Z   File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+2025-08-04T22:22:52.259485834Z     return _bootstrap._gcd_import(name[level:], package, level)
+2025-08-04T22:22:52.259491284Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-08-04T22:22:52.259496374Z   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+2025-08-04T22:22:52.259501744Z   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+2025-08-04T22:22:52.259506764Z   File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+2025-08-04T22:22:52.259511954Z   File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+2025-08-04T22:22:52.259517085Z   File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+2025-08-04T22:22:52.259522105Z   File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+2025-08-04T22:22:52.259528185Z   File "/workspace/ComfyUI/custom_nodes/comfyui_controlnet_aux/node_wrappers/pose_keypoint_postprocess.py", line 11, in <module>
+2025-08-04T22:22:52.259533565Z     from ..src.custom_controlnet_aux.dwpose import draw_poses, draw_animalposes, decode_json_as_poses
+2025-08-04T22:22:52.259539195Z   File "/workspace/ComfyUI/custom_nodes/comfyui_controlnet_aux/src/custom_controlnet_aux/dwpose/__init__.py", line 21, in <module>
+2025-08-04T22:22:52.259541995Z [36;20m[/workspace/ComfyUI/custom_nodes/comfyui_controlnet_aux] | INFO -> Some nodes failed to load:
+2025-08-04T22:22:52.259560186Z 	Failed to import module dwpose because ModuleNotFoundError: No module named 'custom_controlnet_aux.dwpose'
+2025-08-04T22:22:52.259567376Z 	Failed to import module pose_keypoint_postprocess because ModuleNotFoundError: No module named 'custom_controlnet_aux.dwpose'
+2025-08-04T22:22:52.259578496Z Check that you properly installed the dependencies.
+2025-08-04T22:22:52.259584337Z If you think this is a bug, please report it on the github page (https://github.com/Fannovel16/comfyui_controlnet_aux/issues)[0m
+2025-08-04T22:22:52.259546586Z     from .wholebody import Wholebody
+2025-08-04T22:22:52.259602377Z   File "/workspace/ComfyUI/custom_nodes/comfyui_controlnet_aux/src/custom_controlnet_aux/dwpose/wholebody.py", line 16, in <module>
+2025-08-04T22:22:52.259608657Z     from custom_controlnet_aux.dwpose.util import guess_onnx_input_shape_dtype, get_model_type, get_ort_providers, is_model_torchscript
+2025-08-04T22:22:52.259613838Z ModuleNotFoundError: No module named 'custom_controlnet_aux.dwpose'
+2025-08-04T22:22:52.262065880Z ======================================== ComfyUI-nunchaku Initialization ========================================
+2025-08-04T22:22:52.263340288Z Nunchaku version: 0.3.1
+2025-08-04T22:22:52.263767541Z ComfyUI-nunchaku version: 0.3.3
+2025-08-04T22:22:53.337597410Z rp_handler.py       :34   2025-08-04 22:22:53,337 Waiting for ComfyUI to start...
+2025-08-04T22:22:53.817039644Z /workspace/ComfyUI/venv/lib/python3.12/site-packages/timm/models/layers/__init__.py:48: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+2025-08-04T22:22:53.817067635Z   warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+2025-08-04T22:22:53.818046524Z Please 'pip install xformers'
+2025-08-04T22:22:53.819041894Z Please 'pip install apex'
+2025-08-04T22:22:53.819279661Z Please 'pip install xformers'
+2025-08-04T22:22:53.825643100Z =================================================================================================================
+2025-08-04T22:22:53.827190386Z Import times for custom nodes:
+2025-08-04T22:22:53.827196956Z    0.0 seconds: /workspace/ComfyUI/custom_nodes/websocket_image_save.py
+2025-08-04T22:22:53.827207446Z    0.0 seconds: /workspace/ComfyUI/custom_nodes/comfyui-upscale-by-model
+2025-08-04T22:22:53.827220226Z    0.0 seconds: /workspace/ComfyUI/custom_nodes/Save-Image-Plus
+2025-08-04T22:22:53.827274088Z    0.0 seconds: /workspace/ComfyUI/custom_nodes/comfyui-adaptive-guidance
+2025-08-04T22:22:53.827323419Z    0.0 seconds: /workspace/ComfyUI/custom_nodes/ComfyUI-Chibi-Nodes
+2025-08-04T22:22:53.827340270Z    0.0 seconds: /workspace/ComfyUI/custom_nodes/ComfyUI_essentials
+2025-08-04T22:22:53.827399412Z    0.1 seconds: /workspace/ComfyUI/custom_nodes/comfyui_controlnet_aux
+2025-08-04T22:22:53.827417692Z    0.1 seconds: /workspace/ComfyUI/custom_nodes/ComfyUI-KJNodes
+2025-08-04T22:22:53.827487124Z    0.1 seconds: /workspace/ComfyUI/custom_nodes/ComfyUI-Manager
+2025-08-04T22:22:53.827495515Z    0.9 seconds: /workspace/ComfyUI/custom_nodes/ComfyUI-TBG-ETUR
+2025-08-04T22:22:53.827548736Z    1.6 seconds: /workspace/ComfyUI/custom_nodes/nunchaku_nodes
+2025-08-04T22:22:54.072810353Z Context impl SQLiteImpl.
+2025-08-04T22:22:54.072840044Z Will assume non-transactional DDL.
+2025-08-04T22:22:54.073756301Z No target revision found.
+2025-08-04T22:22:54.083492660Z Starting server
+2025-08-04T22:22:54.083728747Z To see the GUI go to: http://0.0.0.0:3001
+2025-08-04T22:22:54.083867321Z To see the GUI go to: http://[::]:3001
+2025-08-04T22:22:54.989182300Z FETCH ComfyRegistry Data: 5/93
+2025-08-04T22:22:55.342263466Z rp_handler.py       :32   2025-08-04 22:22:55,341 ComfyUI is ready
+2025-08-04T22:22:55.342292116Z rp_handler.py       :669  2025-08-04 22:22:55,342 ComfyUI initialization complete
+2025-08-04T22:22:55.342298767Z rp_handler.py       :681  2025-08-04 22:22:55,342 Starting RunPod serverless handler...
+2025-08-04T22:22:55.342300377Z --- Starting Serverless Worker |  Version 1.7.13 ---
+2025-08-04T22:22:56.067500852Z {"requestId": null, "message": "Jobs in queue: 1", "level": "INFO"}
+2025-08-04T22:22:56.067530903Z {"requestId": null, "message": "Jobs in progress: 1", "level": "INFO"}
+2025-08-04T22:22:56.067631836Z {"requestId": "ac971276-b0a0-4885-9f75-3b72e8c38021-u2", "message": "Started.", "level": "INFO"}
+2025-08-04T22:22:56.067790411Z rp_handler.py       :40   2025-08-04 22:22:56,067 Starting job processing: ac971276-b0a0-4885-9f75-3b72e8c38021-u2
+2025-08-04T22:22:56.070279745Z rp_handler.py       :43   2025-08-04 22:22:56,070 Contents of /runpod-volume: ['.ipynb_checkpoints', 'ComfyUI', 'install_comfyui_3.12_2.7+12.8_.sh']
+2025-08-04T22:22:56.072284134Z rp_handler.py       :45   2025-08-04 22:22:56,072 Contents of /runpod-volume/ComfyUI/models: ['.ipynb_checkpoints', 'vae_approx', 'vae', 'upscale_models', 'unet', 'text_encoders', 'style_models', 'photomaker', 'loras', 'hypernetworks', 'gligen', 'embeddings', 'diffusion_models', 'diffusers', 'controlnet', 'configs', 'clip_vision', 'clip', 'checkpoints']
+2025-08-04T22:22:56.074662735Z rp_handler.py       :52   2025-08-04 22:22:56,074 Contents of /runpod-volume/ComfyUI/models/checkpoints: ['put_checkpoints_here']
+2025-08-04T22:22:56.076818129Z rp_handler.py       :52   2025-08-04 22:22:56,076 Contents of /runpod-volume/ComfyUI/models/vae: ['.ipynb_checkpoints', 'flux_vae.safetensors', 'put_vae_here']
+2025-08-04T22:22:56.079025644Z rp_handler.py       :52   2025-08-04 22:22:56,078 Contents of /runpod-volume/ComfyUI/models/controlnet: ['FLUX.1-dev-ControlNet-Union-Pro-Shakker-Labs.safetensors', 'put_controlnets_and_t2i_here']
+2025-08-04T22:22:56.080793107Z rp_handler.py       :52   2025-08-04 22:22:56,080 Contents of /runpod-volume/ComfyUI/models/clip: ['put_clip_or_text_encoder_models_here']
+2025-08-04T22:22:56.082630701Z rp_handler.py       :52   2025-08-04 22:22:56,082 Contents of /runpod-volume/ComfyUI/models/upscale_models: ['.ipynb_checkpoints', 'RealESRGAN_x8.pth']
+2025-08-04T22:22:56.085202278Z rp_handler.py       :52   2025-08-04 22:22:56,085 Contents of /runpod-volume/ComfyUI/models/text_encoders: ['.ipynb_checkpoints', 't5xxl_fp8_e4m3fn.safetensors', 'clip_l.safetensors']
+2025-08-04T22:22:56.085225198Z rp_handler.py       :57   2025-08-04 22:22:56,085 === FILESYSTEM DEBUG END ===
+2025-08-04T22:22:56.089098723Z rp_handler.py       :85   2025-08-04 22:22:56,088 Processing prompt: man...
+2025-08-04T22:22:56.090222207Z rp_handler.py       :508  2025-08-04 22:22:56,090 Successfully saved input image (191217 bytes)
+2025-08-04T22:22:56.090245927Z rp_handler.py       :516  2025-08-04 22:22:56,090 Checking available ComfyUI nodes...
+2025-08-04T22:22:56.269111424Z rp_handler.py       :527  2025-08-04 22:22:56,268 Found required node: AIO_Preprocessor
+2025-08-04T22:22:56.269128695Z rp_handler.py       :527  2025-08-04 22:22:56,268 Found required node: GetImageSize+
+2025-08-04T22:22:56.269134025Z rp_handler.py       :527  2025-08-04 22:22:56,268 Found required node: ColorMatch
+2025-08-04T22:22:56.269139245Z rp_handler.py       :527  2025-08-04 22:22:56,268 Found required node: NunchakuFluxDiTLoader
+2025-08-04T22:22:56.269144425Z rp_handler.py       :527  2025-08-04 22:22:56,268 Found required node: ImageResizeKJv2
+2025-08-04T22:22:56.269149815Z rp_handler.py       :527  2025-08-04 22:22:56,268 Found required node: SaveImagePlus
+2025-08-04T22:22:56.269154995Z rp_handler.py       :539  2025-08-04 22:22:56,268 Queuing workflow to ComfyUI...
+2025-08-04T22:22:56.270804674Z got prompt
+2025-08-04T22:22:56.294098155Z rp_handler.py       :547  2025-08-04 22:22:56,293 Workflow queued successfully with prompt_id: 6034211e-efcd-4698-9881-54b082f07937
+2025-08-04T22:22:57.689645669Z Using pytorch attention in VAE
+2025-08-04T22:22:57.691907556Z Using pytorch attention in VAE
+2025-08-04T22:22:58.976322723Z FETCH ComfyRegistry Data: 10/93
+2025-08-04T22:22:59.796295811Z VAE load device: cuda:0, offload device: cpu, dtype: torch.bfloat16
+2025-08-04T22:22:59.865722781Z GPU 0 (NVIDIA GeForce RTX 4090) Memory: 24210.3125 MiB
+2025-08-04T22:22:59.865808593Z VRAM > 14GiB，disable CPU offload
+2025-08-04T22:23:03.819824004Z FETCH ComfyRegistry Data: 15/93
+2025-08-04T22:23:04.494268864Z [2025-08-04 22:23:04.494] [info] Initializing QuantizedFluxModel on device 0
+2025-08-04T22:23:04.545590396Z [2025-08-04 22:23:04.545] [info] Loading partial weights from pytorch
+2025-08-04T22:23:05.358994399Z rp_handler.py       :564  2025-08-04 22:23:05,358 Still waiting for completion... (9.1s elapsed)
+2025-08-04T22:23:15.363326885Z rp_handler.py       :571  2025-08-04 22:23:15,363 Failed to check workflow status: HTTPConnectionPool(host='127.0.0.1', port=3001): Read timed out. (read timeout=10)
+2025-08-04T22:23:15.712449273Z {"requestId": "ac971276-b0a0-4885-9f75-3b72e8c38021-u2", "message": "Finished.", "level": "INFO"}
