@@ -39,9 +39,6 @@ RUN cd /workspace/ComfyUI/models && \
     done
 
 
-# Copy the extra model paths configuration to tell ComfyUI where to find the models
-COPY extra_model_paths.yaml /workspace/ComfyUI/extra_model_paths.yaml
-
 
 # Copy requirements and install handler dependencies
 COPY requirements.txt .
