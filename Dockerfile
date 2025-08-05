@@ -27,6 +27,7 @@ RUN cd /workspace/ComfyUI && \
 RUN . /workspace/ComfyUI/venv/bin/activate && \
     pip install \
         easy-dwpose \
+        onnxruntime-gpu==1.18.0 \
         -r /workspace/ComfyUI/custom_nodes/comfyui_controlnet_aux/requirements.txt \
         -r /workspace/ComfyUI/custom_nodes/ComfyUI_essentials/requirements.txt \
         -r /workspace/ComfyUI/custom_nodes/nunchaku_nodes/requirements.txt && \
