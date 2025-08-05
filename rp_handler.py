@@ -91,7 +91,7 @@ def handler(job):
     # --- 2. Load Your Workflow ---
     # This is the static workflow from your file.
     workflow_api_json = """
-    {
+   {
   "1": {
     "inputs": {
       "image": "maxresdefault (99).jpg"
@@ -99,20 +99,6 @@ def handler(job):
     "class_type": "LoadImage",
     "_meta": {
       "title": "Load Image"
-    }
-  },
-  "2": {
-    "inputs": {
-      "preprocessor": "TilePreprocessor",
-      "resolution": 512,
-      "image": [
-        "68",
-        0
-      ]
-    },
-    "class_type": "AIO_Preprocessor",
-    "_meta": {
-      "title": "AIO Aux Preprocessor"
     }
   },
   "3": {
@@ -133,7 +119,7 @@ def handler(job):
         0
       ],
       "image": [
-        "2",
+        "97",
         0
       ],
       "vae": [
@@ -173,11 +159,11 @@ def handler(job):
   "13": {
     "inputs": {
       "width": [
-        "31",
+        "99",
         0
       ],
       "height": [
-        "31",
+        "99",
         1
       ],
       "batch_size": 1
@@ -223,18 +209,6 @@ def handler(job):
     "class_type": "CLIPTextEncode",
     "_meta": {
       "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "31": {
-    "inputs": {
-      "image": [
-        "68",
-        0
-      ]
-    },
-    "class_type": "GetImageSize+",
-    "_meta": {
-      "title": "🔧 Get Image Size"
     }
   },
   "35": {
@@ -288,7 +262,7 @@ def handler(job):
   },
   "39": {
     "inputs": {
-      "noise_seed": 52
+      "noise_seed": 58
     },
     "class_type": "RandomNoise",
     "_meta": {
@@ -452,6 +426,32 @@ def handler(job):
     "class_type": "SaveImagePlus",
     "_meta": {
       "title": "Save Image Plus"
+    }
+  },
+  "97": {
+    "inputs": {
+      "blur_radius": 11,
+      "sigma": 1,
+      "image": [
+        "68",
+        0
+      ]
+    },
+    "class_type": "ImageBlur",
+    "_meta": {
+      "title": "Image Blur"
+    }
+  },
+  "99": {
+    "inputs": {
+      "image": [
+        "68",
+        0
+      ]
+    },
+    "class_type": "GetImageSize",
+    "_meta": {
+      "title": "Get Image Size"
     }
   }
 }
