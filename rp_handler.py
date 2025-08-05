@@ -414,7 +414,7 @@ def handler(job):
   },
   "81": {
     "inputs": {
-      "model_name": "RealESRGAN_x8.pth"
+      "model_name": "4x-UltraSharp.pth"
     },
     "class_type": "UpscaleModelLoader",
     "_meta": {
