@@ -517,7 +517,7 @@ def handler(job):
         nodes_req = requests.get(f"http://{COMFY_HOST}/object_info", timeout=10)
         if nodes_req.status_code == 200:
             available_nodes = nodes_req.json()
-            required_nodes = ["AIO_Preprocessor", "GetImageSize+", "ColorMatch", "NunchakuFluxDiTLoader", "ImageResizeKJv2", "SaveImagePlus"]
+            required_nodes = ["GetImageSize", "ColorMatch", "NunchakuFluxDiTLoader", "ImageResizeKJv2", "SaveImagePlus"]
             missing_nodes = []
             for node in required_nodes:
                 if node not in available_nodes:
