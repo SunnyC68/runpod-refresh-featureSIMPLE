@@ -18,3 +18,5 @@ __pycache__/
 README.md
 
 Dockerfile ComfyUI.txt
+FluxControlNetBlurSameAPI.json
+FluxControlNetBlurSame (1).json
