@@ -23,10 +23,10 @@ RUN cd /workspace/ComfyUI && \
     git clone --depth 1 https://github.com/Ltamann/ComfyUI-TBG-ETUR.git ./custom_nodes/ComfyUI-TBG-ETUR && \
     git clone --depth 1 https://github.com/mit-han-lab/ComfyUI-nunchaku.git ./custom_nodes/nunchaku_nodes
 
-# Install custom node dependencies
+# Install custom node dependencies using the --no-deps strategy
 RUN . /workspace/ComfyUI/venv/bin/activate && \
+    pip install easy-dwpose --no-deps && \
     pip install \
-        easy-dwpose \
         onnxruntime-gpu==1.18.0 \
         -r /workspace/ComfyUI/custom_nodes/comfyui_controlnet_aux/requirements.txt \
         -r /workspace/ComfyUI/custom_nodes/ComfyUI_essentials/requirements.txt \
